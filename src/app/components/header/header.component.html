@@ -12,7 +12,12 @@
         <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
+        <ng-template [ngIf]="!authService.isAuthorized()">
+          <li><a routerLink="/signup">Register</a></li>
+          <li><a routerLink="/signin">Login</a></li>
+        </ng-template>
+        <li><a routerLink="/signin" (click)="onLogout()" *ngIf="authService.isAuthorized()">LogOut</a></li>
+        <li class="dropdown" appDropdown *ngIf="authService.isAuthorized()">
           <a style="cursor: pointer"
              class="dropdown-toggle"
              role="button">
